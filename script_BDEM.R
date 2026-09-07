@@ -59,6 +59,33 @@ View(dados_sim_2)
 # Atenção: a unidade de medida de IDADE no DICIONÀRIO do SIM está errada
 # O propósito das avaliações acima é verificar se as categorias estão de acordo com o dicionário do SIM ou se aparecem categorias estranhas
 
+freqTIPOBITO<-table(dados_sim_2$TIPOBITO)
+barplot(freqTIPOBITO, main="Frequência das categorias de TIPOBITO", col="Green")
+
+freqSEXO<-table(dados_sim_2$SEXO)
+barplot(freqSEXO, main="Frequência das categorias de SEXO", col="Blue")
+
+freqRACACOR<-table(dados_sim_2$RACACOR)
+barplot(freqRACACOR, main="Frequência das categorias de RACACOR", col="Yellow")
+
+freqESC2010<-table(dados_sim_2$ESC2010)
+barplot(freqESC2010, main="Frequência das categorias de ESC2010", col="Lightblue")
+
+freqTPMORTEOCO<-table(dados_sim_2$TPMORTEOCO)
+barplot(freqTPMORTEOCO, main="Frequência das categorias de TPMORTEOCO", col="DarkBlue")
+
+freqCAUSABAS<-table(dados_sim_2$CAUSABAS)
+barplot(freqCAUSABAS, main="Frequências das categorias de CAUSABAS", col="Darkgreen")
+
+CID<-substr(as.character(dados_sim_2$CAUSABAS),1,1)
+freqCID<-table(CID)
+barplot(freqCID, main="Frequências das categorias de CAUSABAS, agrupadas em grupos", col="Darkorange")
+
+
+unidadeIDADE<-substr(dados_sim_2$IDADE,1,1)
+freqIDADE<-table(unidadeIDADE)
+barplot(freqIDADE, main="Frequências agrupadas das categorias da unidade de IDADE", col="Purple")
+
 
 # Ao terminar a Tarefa 4 commit com a mensagem "script BDEM - SIM - tarefas 1 a 4" e envie para o repositório Projeto_BDEM_2016
 
