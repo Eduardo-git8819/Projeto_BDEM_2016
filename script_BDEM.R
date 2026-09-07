@@ -95,6 +95,19 @@ barplot(freqIDADE, main="Frequências agrupadas das categorias da unidade de IDA
 # Verifique o dicionário do SIM para identificar qual o código das categorias de cada variável
 # Em variáveis quantitativas como IDADE verificar se existem valores como 9999 para NA
 
+dados_sim_2$TIPOBITO[dados_sim_2$TIPOBITO == 9] <- NA
+
+dados_sim_2$SEXO[dados_sim_2$SEXO == 9] <- NA
+
+dados_sim_2$RACACOR[dados_sim_2$RACACOR == 9] <- NA
+
+dados_sim_2$ESC2010[dados_sim_2$ESC2010 == 9] <- NA
+
+dados_sim_2$TPMORTEOCO[dados_sim_2$TPMORTEOCO == 9] <- NA
+
+dados_sim_2$IDADE[substr(as.character(dados_sim_2$IDADE), 1, 1) == "9"] <- NA
+
+summary(dados_sim_2$IDADE)
 
 # Ao terminar a Tarefa 5 commit com a mensagem "script BDEM - SIM - tarefas 1 a 5" e envie para o repositório Projeto_BDEM_2016
 
