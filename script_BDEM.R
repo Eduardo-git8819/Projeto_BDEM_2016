@@ -134,6 +134,46 @@ dados_sim_2$TPMORTEOCO <- factor(dados_sim_2$TPMORTEOCO, levels = c(1, 2, 3, 4, 
 # Tarefa 7. Criar um banco de dados, de nome SIM_UF.csv (Exemplo: SIM_RJ.csv), contendo as variáveis listadas no arquivo “Variáveis - Projeto - Tarefa 7 - SIM.pdf”
 # Atenção: a ordem das variáveis do arquivo deve ser respeitada
 
+municipios <- sort(unique(dados_sim_2$CODMUNRES))
+
+SIM_PI <- data.frame(
+  ANO = rep(2016, length(municipios)),
+  NIVEL = rep("MUNICIPIO", length(municipios)),
+  CODMUNRES = municipios
+)
+
+
+SIM_PI$TO <- as.vector(table(dados_sim_2$CODMUNRES))
+SIM_PI$TO_M <- as.vector(tapply(dados_sim_2$SEXO == "Masculino", dados_sim_2$CODMUNRES, sum, na.rm = TRUE))
+SIM_PI$TO_F <- as.vector(tapply(dados_sim_2$SEXO == "Feminino", dados_sim_2$CODMUNRES, sum, na.rm = TRUE))
+SIM_PI$TO_FT <- as.vector(tapply(dados_sim_2$TIPOBITO == "Fetal", dados_sim_2$CODMUNRES, sum, na.rm = TRUE))
+
+
+vars_pendentes <- c(
+  "TORC", "TORCR", "TO_NN", "TO_N", "TO_CB_I", "TO_CB_N", "TO_CB_C", 
+  "TO_CB_R", "TO_CB_O", "TO_F_IF", "TO_NT", "TO_NT_P", "TO_NT_T", 
+  "TO_PNT", "TONT_B", "TONT_PT", "TONT_A", "TONT_PD", "TONT_I", 
+  "TO_MT", "TO_MT_DG", "TO_MT_PT", "TO_MT_AB", "TO_MT_42", "TO_MT_43", 
+  "TO_MT_P", "TO_MT_P_I", "TO_MT_P_ES", "TO_MT_P_EFI", "TO_MT_P_EFII", 
+  "TO_MT_P_EM", "TO_MT_P_ESI", "TO_MT_P_ESC"
+)
+
+for(v in vars_pendentes) {
+  SIM_PI[[v]] <- NA
+}
+
+ordem_final <- c(
+  "ANO", "NIVEL", "CODMUNRES", "TO", "TORC", "TORCR", 
+  "TO_NN", "TO_N", "TO_CB_I", "TO_CB_N", "TO_CB_C", 
+  "TO_CB_R", "TO_CB_O", "TO_M", "TO_F", "TO_F_IF", 
+  "TO_FT", "TO_NT", "TO_NT_P", "TO_NT_T", "TO_PNT", 
+  "TONT_B", "TONT_PT", "TONT_A", "TONT_PD", "TONT_I", 
+  "TO_MT", "TO_MT_DG", "TO_MT_PT", "TO_MT_AB", "TO_MT_42", "TO_MT_43", 
+  "TO_MT_P", "TO_MT_P_I", "TO_MT_P_ES", "TO_MT_P_EFI", "TO_MT_P_EFII", 
+  "TO_MT_P_EM", "TO_MT_P_ESI", "TO_MT_P_ESC"
+)
+
+SIM_PI <- SIM_PI[, ordem_final]
 
 # Ao terminar a Tarefa 7 commit com a mensagem "script BDEM - SIM - tarefas 1 a 7" e envie para o repositório Projeto_BDEM_2016
 
