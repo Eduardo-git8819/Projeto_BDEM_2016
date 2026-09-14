@@ -180,6 +180,8 @@ SIM_PI <- SIM_PI[, ordem_final]
 
 # Tarefa 8. Exportar o banco de dados com o nome SIM_UF.csv (Exemplo: SIM_RJ.csv)
 
+write.csv(SIM_PI, file = "SIM_PI.csv", row.names = FALSE)
+
 # Ao terminar a Tarefa 8 fazer um commit com o comentário "dados SIM_UF 2016 e script - SIM - tarefas 1 a 8"  e envie para o repositório Projeto_BDEM_2016
 
 
