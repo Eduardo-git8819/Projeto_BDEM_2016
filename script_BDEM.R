@@ -197,6 +197,10 @@ write.csv(SIM_PI, file = "SIM_PI.csv", row.names = FALSE)
 # Por uma questão de padronização coloque todos os nomes das variáveis em letra maiúscula,
 # usando o comando names(dados_sinasc) = toupper(names(dados_sinasc))
 
+dados_sinasc<-read.csv("SINASC_2016.csv", header = T, sep=";")
+str(dados_sinasc)
+summary(dados_sinasc)
+View(dados_sinasc)
 
 # Ao terminar a Tarefa 1 commit com a mensagem "script BDEM - SINASC - tarefa 1" e envie para o repositório Projeto_BDEM_2016
 
