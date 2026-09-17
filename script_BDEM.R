@@ -230,6 +230,21 @@ summary(dados_sinasc_1)
 # 41: 155066    42: 95313     43: 141411
 # 50: 42432     51: 53531     52: 95563     53: 43340 
 
+# Foi percebido ao ler a base dados, que suas colunas, isto é, variáveis não estavam
+# em caixa alta, logo: 
+
+names(dados_sinasc_1)<-toupper(names(dados_sinasc_1))
+
+summary(dados_sinasc_1$CODMUNRES)
+
+UF<-substr(as.character(dados_sinasc_1$CODMUNRES),1,2)
+
+dados_sinasc_2<-dados_sinasc_1[UF=="22",]
+
+# Checando se o novo banco de dados está selecionando corretamente a UF
+# da variável CODMUNRES.
+
+str(dados_sinasc_2$CODMUNRES)
 
 # Ao terminar a Tarefa 3 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 3" e envie para o repositório Projeto_BDEM_2016
 
