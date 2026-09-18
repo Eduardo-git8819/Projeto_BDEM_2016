@@ -254,6 +254,46 @@ str(dados_sinasc_2$CODMUNRES)
 # Avalie também os valores das variáveis quantitativas de IDADEMAE, SEMAGESTAC, APGAR5 e PESO
 
 
+# Verificando as frequências das categorias das variáveis pedidas. 
+
+table(dados_sinasc_2$LOCNASC)
+
+table(dados_sinasc_2$ESTCIVMAE)
+        
+table(dados_sinasc_2$GESTACAO)
+        
+table(dados_sinasc_2$GRAVIDEZ)
+
+table(dados_sinasc_2$PARTO)
+
+table(dados_sinasc_2$SEXO)
+                        
+table(dados_sinasc_2$RACACOR)
+                                
+table(dados_sinasc_2$IDANOMAL)
+                                        
+table(dados_sinasc_2$ESCMAE2010)
+                                                
+table(dados_sinasc_2$RACACORMAE)
+                                                        
+table(dados_sinasc_2$TPAPRESENT)
+                                                                
+table(dados_sinasc_2$TPROBSON)
+        
+table(dados_sinasc_2$PARIDADE)
+        
+table(dados_sinasc_2$KOTELCHUCK)
+
+# Avaliando os valores das variáveis quantitativas pedidas.
+
+summary(dados_sinasc_2$IDADEMAE)
+
+summary(dados_sinasc_2$SEMAGESTAC)
+
+summary(dados_sinasc_2$APGAR5)
+
+summary(dados_sinasc_2$PESO)
+
 # Ao terminar a Tarefa 4 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 4" e envie para o repositório Projeto_BDEM_2016
 
 
