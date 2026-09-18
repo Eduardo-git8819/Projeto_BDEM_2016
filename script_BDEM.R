@@ -396,6 +396,65 @@ dados_sinasc_2$TPROBSON <- factor(dados_sinasc_2$TPROBSON, levels = c(1, 2, 3, 4
 # nova variável: dados_sinasc_2$ESTCIV: Sem companheiro: ESTCIVMAE 1, 3 ou 4, Com companheiro: ESTCIVMAE 2 ou 5
 # Ao categorizar as variáveis, garantir que sejam transformadas em tipo fator
 
+# 1. Nova variável: F_PESO
+
+dados_sinasc_2$F_PESO <- NA
+
+dados_sinasc_2$F_PESO[dados_sinasc_2$PESO < 2500] <- "Baixo peso"
+dados_sinasc_2$F_PESO[dados_sinasc_2$PESO >= 2500 & dados_sinasc_2$PESO < 4000] <- "Peso normal"
+dados_sinasc_2$F_PESO[dados_sinasc_2$PESO >= 4000] <- "Macrossomia"
+
+dados_sinasc_2$F_PESO <- factor(dados_sinasc_2$F_PESO, levels = c("Baixo peso", "Peso normal", "Macrossomia"))
+
+
+# 2. Nova variável: F_IDADE
+
+dados_sinasc_2$F_IDADE <- NA
+
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE < 15] <- "<15"
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE >= 15 & dados_sinasc_2$IDADEMAE <= 19] <- "15-19"
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE >= 20 & dados_sinasc_2$IDADEMAE <= 24] <- "20-24"
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE >= 25 & dados_sinasc_2$IDADEMAE <= 29] <- "25-29"
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE >= 30 & dados_sinasc_2$IDADEMAE <= 34] <- "30-34"
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE >= 35 & dados_sinasc_2$IDADEMAE <= 39] <- "35-39"
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE >= 40 & dados_sinasc_2$IDADEMAE <= 44] <- "40-44"
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE >= 45 & dados_sinasc_2$IDADEMAE <= 49] <- "45-49"
+dados_sinasc_2$F_IDADE[dados_sinasc_2$IDADEMAE >= 50] <- "50+"
+
+dados_sinasc_2$F_IDADE <- factor(dados_sinasc_2$F_IDADE, levels = c("<15", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50+"))
+
+
+# 3. Nova variável: F_APGAR5
+
+dados_sinasc_2$F_APGAR5 <- NA
+
+dados_sinasc_2$F_APGAR5[dados_sinasc_2$APGAR5 < 7] <- "Baixo"
+dados_sinasc_2$F_APGAR5[dados_sinasc_2$APGAR5 >= 7] <- "Normal"
+
+dados_sinasc_2$F_APGAR5 <- factor(dados_sinasc_2$F_APGAR5, levels = c("Baixo", "Normal"))
+
+
+# 4. Nova variável: PEREG (Peregrinação / Deslocamento materno)
+
+dados_sinasc_2$PEREG <- NA
+
+dados_sinasc_2$PEREG[as.character(dados_sinasc_2$CODMUNNASC) == as.character(dados_sinasc_2$CODMUNRES)] <- "Não"
+dados_sinasc_2$PEREG[as.character(dados_sinasc_2$CODMUNNASC) != as.character(dados_sinasc_2$CODMUNRES)] <- "Sim"
+
+dados_sinasc_2$PEREG <- factor(dados_sinasc_2$PEREG, levels = c("Sim", "Não"))
+
+
+# 5. Nova variável: ESTCIV (Estado Civil agrupado)
+# Nota: Como transformamos ESTCIVMAE em factor na Tarefa 6, 
+# buscamos pelos rótulos textuais criados.
+
+dados_sinasc_2$ESTCIV <- NA
+
+dados_sinasc_2$ESTCIV[dados_sinasc_2$ESTCIVMAE %in% c("Solteira", "Viúva", "Separada judicialmente/divorciada")] <- "Sem companheiro"
+dados_sinasc_2$ESTCIV[dados_sinasc_2$ESTCIVMAE %in% c("Casada", "União estável")] <- "Com companheiro"
+
+dados_sinasc_2$ESTCIV <- factor(dados_sinasc_2$ESTCIV, levels = c("Sem companheiro", "Com companheiro"))
+
 
 # Ao terminar a Tarefa 7 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 7" e envie para o repositório Projeto_BDEM_2016
 
