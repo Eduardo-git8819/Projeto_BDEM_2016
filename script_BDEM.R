@@ -324,6 +324,14 @@ dados_sinasc_2$ESCMAE2010[dados_sinasc_2$ESCMAE2010 == "9"] <- NA
 
 dados_sinasc_2$TPAPRESENT[dados_sinasc_2$TPAPRESENT == "9"] <- NA
 
+# Foi visto, ao pesquisar os significados categóricos de cada variável
+# e foi percebido que, as variáveis: TPROBSON e KOTELCHUCK, apresentaram
+# categorias da forma, "num" signica "Não informado ou Ignorado"
+
+dados_sinasc_2$TPROBSON[dados_sinasc_2$TPROBSON == "11"] <- NA
+
+dados_sinasc_2$KOTELCHUCK[dados_sinasc_2$KOTELCHUCK == "9"] <- NA
+
 # As variáveis que não apresentaram categorias explicitando que se
 # referem a: "Não informado ou Ignorado" no dicionário
 # foram mantidas com seus códigos originais.
@@ -346,6 +354,35 @@ summary(dados_sinasc_2$PESO)
 # ATENçÃO: 1. Na hora de escrever os labels, somente a primeira letra da legenda é maiúscula. Exemplo para SEXO: Feminino e Masculino
 #          2. Nesta Tarefa 6 não crie novas variáveis dentro do banco de dados
 
+# Atribuindo as legendas para as categorias das variáveis qualitativas.
+
+dados_sinasc_2$LOCNASC <- factor(dados_sinasc_2$LOCNASC, levels = c(1,2,3,4,5), labels = c("Hospital", "Outros estabelecimentos de saúde", "Domicílio", "Outros", "Aldeia indígena"))
+
+dados_sinasc_2$ESTCIVMAE <- factor(dados_sinasc_2$ESTCIVMAE, levels = c(1,2,3,4,5), labels = c("Solteira", "Casada", "Viúva", "Separada judicialmente/divorciada", "União estável"))
+
+dados_sinasc_2$GESTACAO <- factor(dados_sinasc_2$GESTACAO, levels = c(1,2,3,4,5,6), labels = c("Menos de 22 semanas", "22 a 27 semanas", "28 a 31 semanas", "32 a 36 semanas", "37 a 41 semanas", "42 semanas e mais"))
+
+dados_sinasc_2$GRAVIDEZ <- factor(dados_sinasc_2$GRAVIDEZ, levels = c(1,2,3), labels = c("Única", "Dupla", "Tripla ou mais"))
+
+dados_sinasc_2$PARTO <- factor(dados_sinasc_2$PARTO, levels = c(1,2), labels = c("Vaginal", "Cesáreo"))
+
+dados_sinasc_2$SEXO <- factor(dados_sinasc_2$SEXO, levels = c(1,2), labels = c("Masculino", "Feminino"))
+
+dados_sinasc_2$RACACOR <- factor(dados_sinasc_2$RACACOR, levels = c(1,2,3,4,5), labels = c("Branca", "Preta", "Amarela", "Parda", "Indígena"))
+
+dados_sinasc_2$IDANOMAL <- factor(dados_sinasc_2$IDANOMAL, levels = c(1,2), labels = c("Sim", "Não"))
+
+dados_sinasc_2$ESCMAE2010 <- factor(dados_sinasc_2$ESCMAE2010, levels = c(0,1,2,3,4,5), labels = c("Sem escolaridade", "Fundamental I (1ª a 4ª série)", "Fundamental II (5ª a 8ª série)", "Médio (antigo 2º grau)", "Superior incompleto", "Superior completo"))
+
+dados_sinasc_2$RACACORMAE <- factor(dados_sinasc_2$RACACORMAE, levels = c(1,2,3,4,5), labels = c("Branca", "Preta", "Amarela", "Parda", "Indígena"))
+
+dados_sinasc_2$TPAPRESENT <- factor(dados_sinasc_2$TPAPRESENT, levels = c(1,2,3), labels = c("Cefálico", "Pélvica ou podálica", "Transversa"))
+
+dados_sinasc_2$PARIDADE <- factor(dados_sinasc_2$PARIDADE, levels = c(0,1), labels = c("Nulípara", "Multípara"))
+
+dados_sinasc_2$KOTELCHUCK <- factor(dados_sinasc_2$KOTELCHUCK, levels = c(1, 2, 3, 4, 5), labels = c("Não fez pré-natal", "Inadequado", "Intermediário", "Adequado", "Mais que adequado"))
+
+dados_sinasc_2$TPROBSON <- factor(dados_sinasc_2$TPROBSON, levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), labels = c("Grupo 1", "Grupo 2", "Grupo 3", "Grupo 4", "Grupo 5", "Grupo 6", "Grupo 7", "Grupo 8", "Grupo 9", "Grupo 10"))
 
 # Ao terminar a Tarefa 6 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 6" e envie para o repositório Projeto_BDEM_2016
 
