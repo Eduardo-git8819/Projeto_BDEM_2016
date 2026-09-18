@@ -303,6 +303,37 @@ summary(dados_sinasc_2$PESO)
 # KOTELCHUCK = 9 significa "Não informado"   TPROBSON = 11 significa "Não classificado por falta de informação"
 # Em variáveis quantitativas como IDADEMAE verificar se existem valores como 9999 para NA
 
+# Atribuindo a cada variável NA para a categoria informada como:
+# "Não informado ou Ignorado"
+
+dados_sinasc_2$LOCNASC[dados_sinasc_2$LOCNASC == "9"] <- NA
+
+dados_sinasc_2$ESTCIVMAE[dados_sinasc_2$ESTCIVMAE == "9"] <- NA
+
+dados_sinasc_2$GESTACAO[dados_sinasc_2$GESTACAO == "9"] <- NA
+
+dados_sinasc_2$GRAVIDEZ[dados_sinasc_2$GRAVIDEZ == "9"] <- NA
+
+dados_sinasc_2$PARTO[dados_sinasc_2$PARTO == "9"] <- NA
+
+dados_sinasc_2$SEXO[dados_sinasc_2$SEXO == "0"] <- NA
+
+dados_sinasc_2$IDANOMAL[dados_sinasc_2$IDANOMAL == "9"] <- NA
+
+dados_sinasc_2$ESCMAE2010[dados_sinasc_2$ESCMAE2010 == "9"] <- NA
+
+dados_sinasc_2$TPAPRESENT[dados_sinasc_2$TPAPRESENT == "9"] <- NA
+
+# As variáveis que não apresentaram categorias explicitando que se
+# referem a: "Não informado ou Ignorado" no dicionário
+# foram mantidas com seus códigos originais.
+
+# Conferindo se não possui valores como "999" ou "9999" 
+# para as variáveis: IDADEMAE, PESO. Respectivamente:
+
+summary(dados_sinasc_2$IDADEMAE)
+
+summary(dados_sinasc_2$PESO)
 
 # Ao terminar a Tarefa 5 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 5" e envie para o repositório Projeto_BDEM_2016
 
