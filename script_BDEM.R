@@ -465,6 +465,38 @@ dados_sinasc_2$ESTCIV <- factor(dados_sinasc_2$ESTCIV, levels = c("Sem companhei
 # nova variável apenas para casos de GRAVIDEZ Única: dados_sinasc_2$F_PIG: PIG: PESO < PESO_P10, AIG: PESO_P10 <= PESO <= PESO_P90, GIG: PESO > PESO_P90
 # Atenção para casos de NA em SEMAGESTAC, PESO ou SEXO. Lembre-se também que em dados_sinasc_2 SEXO está como fator com as categorias Feminino e Masculino.
 
+Tabela_PIG_Brasil<-read.csv("Tabela_PIG_Brasil.csv",header = T, sep =";")
+str(Tabela_PIG_Brasil)
+
+Tabela_PIG_Brasil$SEXO<-tolower(Tabela_PIG_Brasil$SEXO)
+Tabela_PIG_Brasil$SEXO<-trimws(Tabela_PIG_Brasil$SEXO)
+
+Tabela_PIG_Brasil$SEXO[Tabela_PIG_Brasil$SEXO == "masculino"] <- "Masculino"
+Tabela_PIG_Brasil$SEXO[Tabela_PIG_Brasil$SEXO == "feminino"] <- "Feminino"
+
+Tabela_PIG_Brasil$SEXO<-factor(Tabela_PIG_Brasil$SEXO, levels = c("Masculino", "Feminino"))
+
+dados_sinasc_2 <- merge(x = dados_sinasc_2, y = Tabela_PIG_Brasil, by.x = c("SEMAGESTAC", "SEXO"),
+                        by.y = c("SEMAGESTAC", "SEXO"), all.x = TRUE)
+
+dados_sinasc_2$F_PIG <- ifelse(
+  dados_sinasc_2$GRAVIDEZ != "Única" | is.na(dados_sinasc_2$GRAVIDEZ), NA,
+  
+  ifelse(
+    is.na(dados_sinasc_2$SEMAGESTAC) | is.na(dados_sinasc_2$PESO) | is.na(dados_sinasc_2$SEXO), NA,
+    
+    ifelse(
+      dados_sinasc_2$PESO < dados_sinasc_2$PESO_P10, "PIG",
+      
+      ifelse(
+        dados_sinasc_2$PESO > dados_sinasc_2$PESO_P90, "GIG",
+        "AIG"
+      )
+    )
+  )
+)
+
+dados_sinasc_2$F_PIG <- as.factor(dados_sinasc_2$F_PIG)
 
 # Ao terminar a Tarefa 8 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 8" e envie para o repositório Projeto_BDEM_2016
 
