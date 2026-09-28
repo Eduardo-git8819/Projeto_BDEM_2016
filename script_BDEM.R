@@ -504,6 +504,321 @@ dados_sinasc_2$F_PIG <- as.factor(dados_sinasc_2$F_PIG)
 # Tarefa 9. Criar um banco de dados, de nome SINASC_UF.csv (Exemplo: SINASC_RJ.csv), contendo as variáveis listadas no arquivo “Variáveis - Projeto - Tarefa 9 - SINASC.pdf”
 # Atenção: a ordem das variáveis do arquivo deve ser respeitada
 
+# Base inicial (municípios do PI)
+base <- data.frame(CODMUNRES = sort(unique(dados_sinasc_2$CODMUNRES)))
+
+
+# TN - total de nascimentos
+tab <- table(factor(dados_sinasc_2$CODMUNRES, levels = base$CODMUNRES))
+TN <- as.data.frame(tab)
+names(TN) <- c("CODMUNRES", "TN")
+base <- merge(base, TN, by = "CODMUNRES", all.x = TRUE)
+
+
+# TNRC - total de nascimentos com registros completos nas 61 variáveis do SINASC
+dados_UF <- dados_sinasc[substr(as.character(dados_sinasc$CODMUNRES), 1, 2) == "22", ]
+dados_UF_comp <- dados_UF[complete.cases(dados_UF), ]
+tab <- table(factor(dados_UF_comp$CODMUNRES, levels = base$CODMUNRES))
+TNRC <- as.data.frame(tab)
+names(TNRC) <- c("CODMUNRES", "TNRC")
+base <- merge(base, TNRC, by = "CODMUNRES", all.x = TRUE)
+
+
+# TNRCR - total de nascimentos com registros completos nas variáveis selecionadas
+dados_UF_1 <- dados_sinasc_1[substr(as.character(dados_sinasc_1$CODMUNRES), 1, 2) == "22", ]
+dados_UF_1_comp <- dados_UF_1[complete.cases(dados_UF_1), ]
+tab <- table(factor(dados_UF_1_comp$CODMUNRES, levels = base$CODMUNRES))
+TNRCR <- as.data.frame(tab)
+names(TNRCR) <- c("CODMUNRES", "TNRCR")
+base <- merge(base, TNRCR, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_15 - total de gestantes com idade inferior a 15 anos
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE < 15], levels = base$CODMUNRES))
+TGI_15 <- as.data.frame(tab)
+names(TGI_15) <- c("CODMUNRES", "TGI_15")
+base <- merge(base, TGI_15, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_15_19 - total de gestantes com idade >= 15 e <= 19 anos
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 15 & dados_sinasc_2$IDADEMAE <= 19], levels = base$CODMUNRES))
+TGI_15_19 <- as.data.frame(tab)
+names(TGI_15_19) <- c("CODMUNRES", "TGI_15_19")
+base <- merge(base, TGI_15_19, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_20_24 - total de gestantes com idade >= 20 e <= 24 anos
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 20 & dados_sinasc_2$IDADEMAE <= 24], levels = base$CODMUNRES))
+TGI_20_24 <- as.data.frame(tab)
+names(TGI_20_24) <- c("CODMUNRES", "TGI_20_24")
+base <- merge(base, TGI_20_24, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_25_29 - total de gestantes com idade >= 25 e <= 29 anos
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 25 & dados_sinasc_2$IDADEMAE <= 29], levels = base$CODMUNRES))
+TGI_25_29 <- as.data.frame(tab)
+names(TGI_25_29) <- c("CODMUNRES", "TGI_25_29")
+base <- merge(base, TGI_25_29, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_30_34 - total de gestantes com idade >= 30 e <= 34 anos
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 30 & dados_sinasc_2$IDADEMAE <= 34], levels = base$CODMUNRES))
+TGI_30_34 <- as.data.frame(tab)
+names(TGI_30_34) <- c("CODMUNRES", "TGI_30_34")
+base <- merge(base, TGI_30_34, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_35_39 - total de gestantes com idade >= 35 e <= 39 anos
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 35 & dados_sinasc_2$IDADEMAE <= 39], levels = base$CODMUNRES))
+TGI_35_39 <- as.data.frame(tab)
+names(TGI_35_39) <- c("CODMUNRES", "TGI_35_39")
+base <- merge(base, TGI_35_39, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_40_44 - total de gestantes com idade >= 40 e <= 44 anos
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 40 & dados_sinasc_2$IDADEMAE <= 44], levels = base$CODMUNRES))
+TGI_40_44 <- as.data.frame(tab)
+names(TGI_40_44) <- c("CODMUNRES", "TGI_40_44")
+base <- merge(base, TGI_40_44, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_45_49 - total de gestantes com idade >= 45 e <= 49 anos
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 45 & dados_sinasc_2$IDADEMAE <= 49], levels = base$CODMUNRES))
+TGI_45_49 <- as.data.frame(tab)
+names(TGI_45_49) <- c("CODMUNRES", "TGI_45_49")
+base <- merge(base, TGI_45_49, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGI_50 - total de gestantes com idade >= 50
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 50], levels = base$CODMUNRES))
+TGI_50 <- as.data.frame(tab)
+names(TGI_50) <- c("CODMUNRES", "TGI_50")
+base <- merge(base, TGI_50, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGIF - total de gestantes em idade fértil (idade >= 15 e <= 49)
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$IDADEMAE >= 15 & dados_sinasc_2$IDADEMAE <= 49], levels = base$CODMUNRES))
+TGIF <- as.data.frame(tab)
+names(TGIF) <- c("CODMUNRES", "TGIF")
+base <- merge(base, TGIF, by = "CODMUNRES", all.x = TRUE)
+
+
+# IM_P25 - percentil 25 da idade materna
+vec_P25 <- tapply(dados_sinasc_2$IDADEMAE, factor(dados_sinasc_2$CODMUNRES, levels = base$CODMUNRES), function(x) quantile(x, 0.25, na.rm = TRUE))
+IM_P25 <- data.frame(CODMUNRES = base$CODMUNRES, IM_P25 = as.numeric(vec_P25))
+base <- merge(base, IM_P25, by = "CODMUNRES", all.x = TRUE)
+
+
+# IM_P50 - percentil 50 da idade materna
+vec_P50 <- tapply(dados_sinasc_2$IDADEMAE, factor(dados_sinasc_2$CODMUNRES, levels = base$CODMUNRES), function(x) quantile(x, 0.50, na.rm = TRUE))
+IM_P50 <- data.frame(CODMUNRES = base$CODMUNRES, IM_P50 = as.numeric(vec_P50))
+base <- merge(base, IM_P50, by = "CODMUNRES", all.x = TRUE)
+
+
+# IM_P75 - percentil 75 da idade materna
+vec_P75 <- tapply(dados_sinasc_2$IDADEMAE, factor(dados_sinasc_2$CODMUNRES, levels = base$CODMUNRES), function(x) quantile(x, 0.75, na.rm = TRUE))
+IM_P75 <- data.frame(CODMUNRES = base$CODMUNRES, IM_P75 = as.numeric(vec_P75))
+base <- merge(base, IM_P75, by = "CODMUNRES", all.x = TRUE)
+
+
+# IM_MD - idade média materna
+vec_MD <- tapply(dados_sinasc_2$IDADEMAE, factor(dados_sinasc_2$CODMUNRES, levels = base$CODMUNRES), function(x) mean(x, na.rm = TRUE))
+IM_MD <- data.frame(CODMUNRES = base$CODMUNRES, IM_MD = as.numeric(vec_MD))
+base <- merge(base, IM_MD, by = "CODMUNRES", all.x = TRUE)
+
+
+# IM_DP - desvio-padrão da idade materna
+vec_DP <- tapply(dados_sinasc_2$IDADEMAE, factor(dados_sinasc_2$CODMUNRES, levels = base$CODMUNRES), function(x) sd(x, na.rm = TRUE))
+IM_DP <- data.frame(CODMUNRES = base$CODMUNRES, IM_DP = as.numeric(vec_DP))
+base <- merge(base, IM_DP, by = "CODMUNRES", all.x = TRUE)
+
+
+# EM_S - total de gestantes sem escolaridade
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$ESCMAE2010 == "Sem escolaridade"], levels = base$CODMUNRES))
+EM_S <- as.data.frame(tab)
+names(EM_S) <- c("CODMUNRES", "EM_S")
+base <- merge(base, EM_S, by = "CODMUNRES", all.x = TRUE)
+
+
+# EM_FI - total de gestantes com escolaridade fundamental I
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$ESCMAE2010 == "Fundamental I (1ª a 4ª série)"], levels = base$CODMUNRES))
+EM_FI <- as.data.frame(tab)
+names(EM_FI) <- c("CODMUNRES", "EM_FI")
+base <- merge(base, EM_FI, by = "CODMUNRES", all.x = TRUE)
+
+
+# EM_FII - total de gestantes com escolaridade fundamental II
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$ESCMAE2010 == "Fundamental II (5ª a 8ª série)"], levels = base$CODMUNRES))
+EM_FII <- as.data.frame(tab)
+names(EM_FII) <- c("CODMUNRES", "EM_FII")
+base <- merge(base, EM_FII, by = "CODMUNRES", all.x = TRUE)
+
+
+# EM_M - total de gestantes com escolaridade médio
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$ESCMAE2010 == "Médio (antigo 2º grau)"], levels = base$CODMUNRES))
+EM_M <- as.data.frame(tab)
+names(EM_M) <- c("CODMUNRES", "EM_M")
+base <- merge(base, EM_M, by = "CODMUNRES", all.x = TRUE)
+
+
+# EM_SI - total de gestantes com escolaridade superior incompleto
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$ESCMAE2010 == "Superior incompleto"], levels = base$CODMUNRES))
+EM_SI <- as.data.frame(tab)
+names(EM_SI) <- c("CODMUNRES", "EM_SI")
+base <- merge(base, EM_SI, by = "CODMUNRES", all.x = TRUE)
+
+
+# EM_SC - total de gestantes com escolaridade superior completo
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$ESCMAE2010 == "Superior completo"], levels = base$CODMUNRES))
+EM_SC <- as.data.frame(tab)
+names(EM_SC) <- c("CODMUNRES", "EM_SC")
+base <- merge(base, EM_SC, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGRC_B - total de gestantes da raça/cor branca
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$RACACORMAE == "Branca"], levels = base$CODMUNRES))
+TGRC_B <- as.data.frame(tab)
+names(TGRC_B) <- c("CODMUNRES", "TGRC_B")
+base <- merge(base, TGRC_B, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGRC_PT - total de gestantes da raça/cor preta
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$RACACORMAE == "Preta"], levels = base$CODMUNRES))
+TGRC_PT <- as.data.frame(tab)
+names(TGRC_PT) <- c("CODMUNRES", "TGRC_PT")
+base <- merge(base, TGRC_PT, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGRC_A - total de gestantes da raça/cor amarela
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$RACACORMAE == "Amarela"], levels = base$CODMUNRES))
+TGRC_A <- as.data.frame(tab)
+names(TGRC_A) <- c("CODMUNRES", "TGRC_A")
+base <- merge(base, TGRC_A, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGRC_PD - total de gestantes da raça/cor parda
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$RACACORMAE == "Parda"], levels = base$CODMUNRES))
+TGRC_PD <- as.data.frame(tab)
+names(TGRC_PD) <- c("CODMUNRES", "TGRC_PD")
+base <- merge(base, TGRC_PD, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGRC_I - total de gestantes da raça/cor indígena
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$RACACORMAE == "Indígena"], levels = base$CODMUNRES))
+TGRC_I <- as.data.frame(tab)
+names(TGRC_I) <- c("CODMUNRES", "TGRC_I")
+base <- merge(base, TGRC_I, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGSC - total de gestantes sem companheiro
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$ESTCIV == "Sem companheiro"], levels = base$CODMUNRES))
+TGSC <- as.data.frame(tab)
+names(TGSC) <- c("CODMUNRES", "TGSC")
+base <- merge(base, TGSC, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGCC - total de gestantes com companheiro
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$ESTCIV == "Com companheiro"], levels = base$CODMUNRES))
+TGCC <- as.data.frame(tab)
+names(TGCC) <- c("CODMUNRES", "TGCC")
+base <- merge(base, TGCC, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGPRI - total de gestantes primíparas
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$PARIDADE == "Nulípara"], levels = base$CODMUNRES))
+TGPRI <- as.data.frame(tab)
+names(TGPRI) <- c("CODMUNRES", "TGPRI")
+base <- merge(base, TGPRI, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGNPRI - total de gestantes não primíparas
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$PARIDADE == "Multípara"], levels = base$CODMUNRES))
+TGNPRI <- as.data.frame(tab)
+names(TGNPRI) <- c("CODMUNRES", "TGNPRI")
+base <- merge(base, TGNPRI, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGU - total de gestações únicas
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$GRAVIDEZ == "Única"], levels = base$CODMUNRES))
+TGU <- as.data.frame(tab)
+names(TGU) <- c("CODMUNRES", "TGU")
+base <- merge(base, TGU, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGG - total de gestações gemelares
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$GRAVIDEZ %in% c("Dupla", "Tripla ou mais")], levels = base$CODMUNRES))
+TGG <- as.data.frame(tab)
+names(TGG) <- c("CODMUNRES", "TGG")
+base <- merge(base, TGG, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGD_22 - total de gestações com duração inferior a 22 semanas
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$GESTACAO == "Menos de 22 semanas"], levels = base$CODMUNRES))
+TGD_22 <- as.data.frame(tab)
+names(TGD_22) <- c("CODMUNRES", "TGD_22")
+base <- merge(base, TGD_22, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGD_22_27 - total de gestações com duração >=22 e <=27
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$GESTACAO == "22 a 27 semanas"], levels = base$CODMUNRES))
+TGD_22_27 <- as.data.frame(tab)
+names(TGD_22_27) <- c("CODMUNRES", "TGD_22_27")
+base <- merge(base, TGD_22_27, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGD_28_31 - total de gestações com duração >=28 e <=31
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$GESTACAO == "28 a 31 semanas"], levels = base$CODMUNRES))
+TGD_28_31 <- as.data.frame(tab)
+names(TGD_28_31) <- c("CODMUNRES", "TGD_28_31")
+base <- merge(base, TGD_28_31, by = "CODMUNRES", all.x = TRUE)
+
+
+# TGD_32_36 - total de gestações com duração >=32 e <=36
+tab <- table(factor(dados_sinasc_2$CODMUNRES[dados_sinasc_2$GESTACAO == "32 a 36 semanas"], levels = base$CODMUNRES))
+TGD_32_36 <- as.data.frame(tab)
+names(TGD_32_36) <- c("CODMUNRES", "TGD_32_36")
+base <- merge(base, TGD_32_36, by = "CODMUNRES", all.x = TRUE)
+
+
+# Criando a linha da UF (Piauí)
+linha_estado <- data.frame(matrix(ncol = ncol(base), nrow = 1))
+names(linha_estado) <- names(base)
+
+# Somando as colunas de contagem 
+linha_estado[, -1] <- colSums(base[, -1], na.rm = TRUE)
+
+# Substituindo as colunas de estatísticas (Percentis, Média, DP) que não podem ser apenas somadas
+linha_estado$IM_P25 <- quantile(dados_sinasc_2$IDADEMAE, 0.25, na.rm = TRUE)
+linha_estado$IM_P50 <- quantile(dados_sinasc_2$IDADEMAE, 0.50, na.rm = TRUE)
+linha_estado$IM_P75 <- quantile(dados_sinasc_2$IDADEMAE, 0.75, na.rm = TRUE)
+linha_estado$IM_MD  <- mean(dados_sinasc_2$IDADEMAE, na.rm = TRUE)
+linha_estado$IM_DP  <- sd(dados_sinasc_2$IDADEMAE, na.rm = TRUE)
+
+linha_estado$CODMUNRES <- "22"
+
+
+# Juntando a UF com os Municípios
+SINASC_UF <- rbind(linha_estado, base)
+
+
+# Adicionando ANO e NIVEL
+SINASC_UF$NIVEL <- c("UF", rep("MUNICIPIO", nrow(SINASC_UF) - 1))
+SINASC_UF$ANO <- 2016
+
+
+# Reordenando conforme o PDF exato
+ordem_final <- c(
+  "ANO", "NIVEL", "CODMUNRES", "TN", "TNRC", "TNRCR",
+  "TGI_15", "TGI_15_19", "TGI_20_24", "TGI_25_29", "TGI_30_34",
+  "TGI_35_39", "TGI_40_44", "TGI_45_49", "TGI_50", "TGIF",
+  "IM_P25", "IM_P50", "IM_P75", "IM_MD", "IM_DP",
+  "EM_S", "EM_FI", "EM_FII", "EM_M", "EM_SI", "EM_SC",
+  "TGRC_B", "TGRC_PT", "TGRC_A", "TGRC_PD", "TGRC_I",
+  "TGSC", "TGCC", "TGPRI", "TGNPRI",
+  "TGU", "TGG", "TGD_22", "TGD_22_27", "TGD_28_31", "TGD_32_36"
+)
+
+SINASC_UF <- SINASC_UF[, ordem_final]
 
 # Ao terminar a Tarefa 9 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 9" e envie para o repositório Projeto_BDEM_2016
 
