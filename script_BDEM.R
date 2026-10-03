@@ -910,6 +910,20 @@ dados_sidra_4$CODUF<-"22"
 # Tarefa 3. Selecionar em dados_sidra_ 1 a dados_sidra_4 a UF de responsabilidade do aluno 
 # e chamar os bancos de dados, respectivamente por sidra_1, sidra_2, sidra_3 e sidra_4
 
+UF_1<-substr(as.character(dados_sidra_1$CODMUNRES), 1, 2) 
+UF_2<-substr(as.character(dados_sidra_2$CODMUNRES), 1, 2) 
+UF_3<-substr(as.character(dados_sidra_3$CODMUNRES), 1, 2)
+UF_4<-substr(as.character(dados_sidra_4$CODMUNRES), 1, 2)
+
+sidra_1<-dados_sidra_1[UF_1=="22",]
+
+sidra_2<-dados_sidra_2[UF_2=="22",]
+
+sidra_3<-dados_sidra_3[UF_3=="22",]
+
+sidra_4<-dados_sidra_4[UF_4=="22",]
+
+
 # Ao terminar a Tarefa 3 commit com a mensagem "script BDEM - SIDRA - tarefas 1 a 3" e envie para o repositório Projeto_BDEM_2016
 
 
