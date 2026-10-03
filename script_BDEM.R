@@ -846,14 +846,62 @@ write.csv(SINASC_UF, file = "SINASC_PI.csv", row.names = FALSE)
 
 # Verificar se a leitura de todos os bancos foi feita corretamente e a estrutura dos dados
 
+dados_sidra_1<-read.csv("população residente estimada - UF e municípios - 2016 - SIDRA - tabela_6579.csv", fileEncoding = "latin1", header = T, sep=";")
+dados_sidra_2<-read.csv("população residente censo 2010 - UF e municípios - total e por sexo - SIDRA - tabela_1552.csv", fileEncoding = "UTF-8", header = T, sep=";")
+dados_sidra_3<-read.csv("população residente censo 2010 - por faixa etária - UF - SIDRA - tabela_1552.csv", fileEncoding = "UTF-8", header = T, sep=";")
+dados_sidra_4<-read.csv("população residente censo 2010 - por faixa etária e sexo - municípios - SIDRA - tabela_1552.csv", fileEncoding = "UTF-8", header = T, sep=";")
 
+str(dados_sidra_1)
+summary(dados_sidra_1)
+head(dados_sidra_1)
 
+View(dados_sidra_2)
+str(dados_sidra_2)
+summary(dados_sidra_2)
+head(dados_sidra_2)
 
+View(dados_sidra_3)
+str(dados_sidra_3)
+summary(dados_sidra_3)
+head(dados_sidra_3)
+
+str(dados_sidra_4)
+summary(dados_sidra_4)
+head(dados_sidra_4)
+
+dim(dados_sidra_1)
+dim(dados_sidra_2)
+dim(dados_sidra_3)
+dim(dados_sidra_4)
+
+View(dados_sidra_1)
+View(dados_sidra_2)
+View(dados_sidra_3)
+View(dados_sidra_4)
+
+# Ao analisar as observações de dados_sidra_3, foi percebido que sua ultima
+# observação estava totalmente nula, logo foi feito o segunte procedimento.
+
+dados_sidra_3<-dados_sidra_3[!is.na(dados_sidra_3$CODMUNRES)
+                             & !is.na(dados_sidra_3$ESTADO) 
+                             & !is.na(dados_sidra_3$F_IDADE) 
+                             & !is.na(dados_sidra_3$POP) 
+                             & !is.na(dados_sidra_3$POPM)
+                             & !is.na(dados_sidra_3$POPF),]
 
 # Ao terminar a Tarefa 1 commit com a mensagem "script BDEM - SIDRA - tarefa 1" e envie para o repositório Projeto_BDEM_2016
 
 
 # Tarefa 2. Criar uma nova variável de nome CODUF com os códigos da UF nos bancos dados_sidra_1, dados_sidra_2, dados_sidra_4
+
+dados_sidra_1$CODUF<-"22"
+# View(dados_sidra_1)
+
+dados_sidra_2$CODUF<-"22"
+# View(dados_sidra_2)
+
+dados_sidra_4$CODUF<-"22"
+# View(dados_sidra_4)
 
 
 # Ao terminar a Tarefa 2 commit com a mensagem "script BDEM - SIDRA - tarefas 1 a 2" e envie para o repositório Projeto_BDEM_2016
@@ -861,7 +909,6 @@ write.csv(SINASC_UF, file = "SINASC_PI.csv", row.names = FALSE)
 
 # Tarefa 3. Selecionar em dados_sidra_ 1 a dados_sidra_4 a UF de responsabilidade do aluno 
 # e chamar os bancos de dados, respectivamente por sidra_1, sidra_2, sidra_3 e sidra_4
-
 
 # Ao terminar a Tarefa 3 commit com a mensagem "script BDEM - SIDRA - tarefas 1 a 3" e envie para o repositório Projeto_BDEM_2016
 
