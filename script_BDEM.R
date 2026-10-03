@@ -847,6 +847,9 @@ write.csv(SINASC_UF, file = "SINASC_PI.csv", row.names = FALSE)
 # Verificar se a leitura de todos os bancos foi feita corretamente e a estrutura dos dados
 
 
+
+
+
 # Ao terminar a Tarefa 1 commit com a mensagem "script BDEM - SIDRA - tarefa 1" e envie para o repositório Projeto_BDEM_2016
 
 
