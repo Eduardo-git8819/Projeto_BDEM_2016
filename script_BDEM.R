@@ -929,6 +929,184 @@ sidra_4<-dados_sidra_4[UF_4=="22",]
 
 # Tarefa 4: Criar um banco de dados, de nome SIDRA_UF.csv (Exemplo: SIDRA_RJ.csv), contendo as variáveis listadas no arquivo “Variáveis - Projeto - Tarefa 4 - SIDRA.pdf”
 
+# Criação da base
+
+base<-data.frame(CODMUNRES=sort(unique(sidra_1$CODMUNRES)))
+
+base<-base[nchar(base$CODMUNRES)!=2 , ]
+
+base<-data.frame(CODMUNRES=base)
+View(base)
+dim(base)
+
+# ANO (Ano de referência)
+
+base$ANO<-2016
+
+
+# NIVEL (nível da informação: UF ou MUNICIPIO)
+# Como foi renovido a primeira observação, referente a linha do
+# estado, temos apenas:
+
+base$NIVEL<-"MUNICIPIO"
+
+
+# CODMUNRES (Código da UF ou do município de residência segundo IBGE)
+# Já foi criada anteriormente.
+
+
+# POBRE_T (população total residente estimada)
+
+temp_sidra_1<-sidra_1[,c(1,3)]
+
+base<-merge(x=base, y=temp_sidra_1, by = "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_T (população total residente em CENSO anterior a ANO (CENSO 2010) )
+
+temp_sidra_2<-sidra_2[,c(1,3)]
+
+base<-merge(x=base, y=temp_sidra_2, by = "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_M (população masculina residente em CENSO anterior a ANO (CENSO 2010) )
+
+temp_sidra_2<-sidra_2[,c(1,4)]
+
+base<-merge(x=base, y=temp_sidra_2, by = "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_F (população feminina residente em CENSO anterior a ANO (CENSO 2010) )
+
+temp_sidra_2<-sidra_2[,c(1,5)]
+
+base<-merge(x=base, y=temp_sidra_2, by = "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_15 (população residente com idade inferior a 15 anos em CENSO anterior a ANO) 
+
+temp_sidra_4<-sidra_4[sidra_4$F_IDADE %in% c("0 a 4 anos", "5 a 9 anos", "10 a 14 anos"), c(1,3)]
+
+
+POPRC_15<-temp_sidra_4$POP
+CODMUNRES<-temp_sidra_4$CODMUNRES
+
+soma_pop_15<-aggregate(POPRC_15 ~ CODMUNRES, data = temp_sidra_4, FUN = sum)
+
+rm(CODMUNRES)
+
+base<-merge(x=base, y=soma_pop_15, by= "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_15_49 (população residente com idade >=15 e <=49 em CENSO anterior a ANO (CENSO 2010) ) 
+
+temp_sidra_4<-sidra_4[sidra_4$F_IDADE %in% c("15 a 19 anos", "20 a 24 anos", "25 a 29 anos",
+                                             "30 a 34 anos", "35 a 39 anos", "40 a 44 anos",
+                                             "45 a 49 anos"), c(1,3)]
+
+POPRC_15_49<-temp_sidra_4$POP
+CODMUNRES<-temp_sidra_4$CODMUNRES
+
+soma_pop_15_49<-aggregate(POPRC_15_49 ~ CODMUNRES, data = temp_sidra_4, FUN = sum)
+
+base<-merge(x=base, y=soma_pop_15_49, by = "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_50 (população residente com idade >=50 em CENSO anterior a ANO (CENSO 2010) )
+
+temp_sidra_4<-sidra_4[sidra_4$F_IDADE %in% c("50 a 54 anos", "55 a 59 anos", "60 a 64 anos",
+                                             "65 a 69 anos", "70 a 74 anos", "75 a 79 anos",
+                                             "80 a 89 anos", "90 a 99 anos", "100 anos ou mais"),
+                                              c(1,3)]
+
+POPRC_50<-temp_sidra_4$POP
+CODMUNRES<-temp_sidra_4$CODMUNRES
+
+soma_pop_50_mais<-aggregate(POPRC_50 ~ CODMUNRES, data = temp_sidra_4, FUN = sum )
+
+base<-merge(x=base, y=soma_pop_50_mais, by = "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_F_15 (população residente feminina com idade inferior a 15 anos em CENSO anterior a ANO (CENSO 2010) )
+
+temp_sidra_4<-sidra_4[sidra_4$F_IDADE %in% c("0 a 4 anos", "5 a 9 anos", "10 a 14 anos"), c(1,5)]
+
+POPRC_F_15<-temp_sidra_4$POP
+CODMUNRES<-temp_sidra_4$CODMUNRES
+
+soma_pop_F_15<-aggregate(POPRC_F_15 ~ CODMUNRES, data = temp_sidra_4, FUN = sum)
+
+base<-merge(x=base, y=soma_pop_F_15, by = "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_F_15_49 (população residente feminina com idade >=15 e <=49 em CENSO anterior a ANO (CENSO 2010) 
+
+temp_sidra_4<-sidra_4[sidra_4$F_IDADE %in% c("15 a 19 anos", "20 a 24 anos", "25 a 29 anos",
+                                             "30 a 34 anos", "35 a 39 anos", "40 a 44 anos",
+                                             "45 a 49 anos"), c(1,5)]
+
+POPRC_F_15_49<-temp_sidra_4$POP
+CODMUNRES<-temp_sidra_4$CODMUNRES
+
+soma_pop_F_15_49<-aggregate(POPRC_F_15_49 ~ CODMUNRES, data = temp_sidra_4, FUN = sum)
+
+base<-merge(x=base, y=soma_pop_F_15_49, by = "CODMUNRES", all.x = TRUE)
+
+
+# POPRC_F_50 população residente feminina com idade >=50 em CENSO anterior a ANO (CENSO 2010) ) 
+
+temp_sidra_4<-sidra_4[sidra_4$F_IDADE %in% c("50 a 54 anos", "55 a 59 anos", "60 a 64 anos",
+                                             "65 a 69 anos", "70 a 74 anos", "75 a 79 anos",
+                                             "80 a 89 anos", "90 a 99 anos", "100 anos ou mais"),
+                                            c(1,5)]
+
+POPRC_F_50<-temp_sidra_4$POP
+CODMUNRES<-temp_sidra_4$CODMUNRES
+
+soma_pop_F_50<-aggregate(POPRC_F_50 ~ CODMUNRES, data = temp_sidra_4, FUN = sum)
+
+base<-merge(x=base, y=soma_pop_F_50, by = "CODMUNRES", all.x = TRUE)
+
+
+# Organizando as variáveis na ordem pedida:
+
+base<-base[,c("ANO", "NIVEL", "CODMUNRES", "POPRE_T", "POPRC_T",
+              "POPRC_M","POPRC_F", "POPRC_15", "POPRC_15_49",
+              "POPRC_50","POPRC_F_15","POPRC_F_15_49", "POPRC_F_50")]
+
+
+# Criação da primeira linha que foi ignorada da criação do banco_UF.csv
+
+linha_Piaui<-data.frame(
+  ANO=2016,
+  NIVEL="UF",
+  CODMUNRES="22",
+  POPRE_T=sum(as.numeric(base$POPRE_T), na.rm = TRUE),
+  POPRC_T=sum(base$POPRC_T, na.rm = TRUE),
+  POPRC_M=sum(base$POPRC_M, na.rm = TRUE),
+  POPRC_F=sum(base$POPRC_F, na.rm = TRUE),
+  POPRC_15=sum(base$POPRC_15, na.rm = TRUE),
+  POPRC_15_49=sum(base$POPRC_15_49, na.rm = TRUE),
+  POPRC_50=sum(base$POPRC_50, na.rm = TRUE),
+  POPRC_F_15=sum(base$POPRC_F_15, na.rm = TRUE),
+  POPRC_F_15_49=sum(base$POPRC_F_15_49, na.rm = TRUE),
+  POPRC_F_50=sum(base$POPRC_F_50, na.rm = TRUE)
+  )
+
+dim(linha_Piaui)
+
+
+# adicionando a linha criada a base contruida.
+
+SIDRA_UF<-rbind(linha_Piaui,base)
+
+# Checando o banco final, SIDRA_UF:
+
+dim(SIDRA_UF)
+str(SIDRA_UF)
+head(SIDRA_UF)
+
+
 # Ao terminar a Tarefa 4 commit com a mensagem "script BDEM - SIDRA - tarefas 1 a 4" e envie para o repositório Projeto_BDEM_2016
 
 
