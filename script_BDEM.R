@@ -1145,6 +1145,10 @@ str(dados_atlas_2)
 summary(dados_atlas_2)
 View(dados_atlas_2)
 
+dim(codigos_IBGE_2010)
+dim(dados_atlas_1)
+dim(dados_atlas_2)
+
 
 # Ao terminar a Tarefa 1 commit com a mensagem "script BDEM - ATLAS - tarefa 1" e envie para o repositório Projeto_BDEM_2016
 
@@ -1197,6 +1201,132 @@ UF_codigo = data.frame(
 # ANO=2016, NIVEL=MUNICIPIO, CODMUNRES, IDHM_A=NA, IDHM_CA, IDHM_CA_M=NA, IDHM_CA_F=NA
 
 # Criar banco final ATLAS_UF "juntando" os bancos linha_estado e ATLAS_MUNICIPIO
+
+dados_atlas_1<-dados_atlas_1[dados_atlas_1$UF!="Brasil",]
+
+dados_atlas_1<-merge(x=dados_atlas_1, y=UF_codigo, by = "UF", all.x = TRUE)
+
+# Optei por fazer o banco linha_estado posteriormente, após a criação das 
+# variáveis do atlas_municipio.
+
+
+# Adicionando a coluna UF ao banco dados_atlas_2.
+
+temp_dados_atlas_2<-trimws(dados_atlas_2$município)
+
+temp_UF_dados_atlas_2<-substr(dados_atlas_2$município, nchar(dados_atlas_2$município)-2
+                              , nchar(dados_atlas_2$município)-1)
+
+dados_atlas_2$UF<-temp_UF_dados_atlas_2
+
+
+# Retirando (UF) do banco dados_atlas_2.
+
+temp_município_dados_atlas_2<-trimws(dados_atlas_2$município)
+
+temp_município_dados_atlas_2<-substr(dados_atlas_2$município, 1, nchar(dados_atlas_2$município)-5)
+
+dados_atlas_2$município<-temp_município_dados_atlas_2
+
+
+# Adicionando a variável CODUF ao banco codigos_IBGE_2010:
+
+codigos_IBGE_2010$CODUF<-substr(codigos_IBGE_2010$CODMUNRES, 1,2)
+
+
+# Acrescentando a codigos_IBGE_2010 as variáveis de UF_codigo:
+
+codigos_IBGE_2010<-merge(x=codigos_IBGE_2010, y=UF_codigo, by = "CODUF", all.x = TRUE)
+
+
+# Associando dados_atlas_2 a codigos_IBGE_2010:
+
+atlas_municipio<-merge(x=dados_atlas_2, y=codigos_IBGE_2010, by.x = c("município","UF"), by.y = c("município","SIGLA"), all.x = TRUE)
+
+
+# Removendo a coluna UF.y do banco atlas_municipio:
+
+atlas_municipio<-atlas_municipio[,c(1,2,3,4,5)]
+
+# View(atlas_municipio)
+
+
+# Selecionando o município a ser trabalhado, neste caso : (22) Piauí:
+
+UF=22
+
+atlas_municipio<-atlas_municipio[which(substr(atlas_municipio$CODMUNRES,1,2) == UF),]
+
+
+# Criando e substituindo algumas variáveis já existentes para a criação completa
+# do banco de dados atlas_municipio
+
+# ANO=2016:
+
+atlas_municipio$ANO<-2016
+
+
+# NIVEL=MUNICIPIO, ou seja, generalizar os municípios da UF selecionada:
+
+names(atlas_municipio)[1]<-"NIVEL"  
+atlas_municipio$NIVEL<-"MUNICIPIO"
+
+# CODMUNRES, variável já adicionada ao banco de dados.
+
+
+# IDHM_A:
+
+atlas_municipio$IDHM_A<-NA
+
+
+# IDHM_CA, já possuimos uma coluna equivalente, portanto:
+
+names(atlas_municipio)[3]<-"IDHM_CA"
+
+
+# IDHM_CA_M:
+
+atlas_municipio$IDHM_CA_M<-NA
+
+
+# IDHM_CA_F:
+
+atlas_municipio$IDHM_CA_F<-NA
+
+
+# Organizando o banco de dados criado, retirando a coluna CODUF ainda com a linha_estado faltante:
+
+atlas_municipio<-atlas_municipio[,c("ANO","NIVEL","CODMUNRES","IDHM_A","IDHM_CA","IDHM_CA_M","IDHM_CA_F")]
+
+
+# Criando a linha_estado p/ UF= (22) Piauí:
+
+linha_estado<-data.frame(
+  ANO=2016,
+  NIVEL="UF",
+  CODMUNRES=22,
+  IDHM_A=dados_atlas_1[dados_atlas_1$SIGLA=="PI",c(3)],
+  IDHM_CA=dados_atlas_1[dados_atlas_1$SIGLA=="PI",c(2)],
+  IDHM_CA_M=dados_atlas_1[dados_atlas_1$SIGLA=="PI",c(4)],
+  IDHM_CA_F=dados_atlas_1[dados_atlas_1$SIGLA=="PI",c(6)]
+  )
+
+# View(linha_estado)
+
+
+# Acrescentando o banco de dados linha_estado ao banco de dados ATLAS_MUNICIPIO:
+
+ATLAS_MUNICIPIO<-atlas_municipio
+
+ATLAS_UF<-rbind(linha_estado,ATLAS_MUNICIPIO)
+
+# View(ATLAS_UF)
+dim(ATLAS_UF)
+
+# Foi percebido que a coluna CODMUNRES foi tratada de forma numérica, porém para
+# padronização, estarei fazendo:
+
+ATLAS_UF$CODMUNRES<-as.character(ATLAS_UF$CODMUNRES)
 
 
 # Ao terminar a Tarefa 2 commit com a mensagem "script BDEM - ATLAS - tarefas 1 a 2" e envie para o repositório Projeto_BDEM_2016
