@@ -1474,7 +1474,7 @@ rownames(SINISA_UF)<-NULL
 # Tarefa 4. Exportar o banco de dados com o nome SINISA_UF.csv (Exemplo: SINISA_RJ.csv)
 # Ao terminar a Tarefa 4 commit com o comentário "dados SINISA_UF 2016 e script - SINISA - tarefas 1 a 4"  e enviar para o repositório Projeto_BDEM_2016
 
-
+write.csv(SINISA_UF, file = "SINISA_PI.csv", row.names = FALSE, fileEncoding = "latin1")
 
 ################################
 # ETAPA 6: CRIAÇÃO DE BDEM_UF
