@@ -1377,6 +1377,14 @@ dados_sinisa$POPR_RE<-ifelse(nchar(dados_sinisa$POPR_RE) >=5,
 
 # Tarefa 2. Reduzir dados_sinisa apenas para o estado que o aluno irá trabalhar (utilizar os dois primeiros dígitos de CODMUNRES), nomeando este novo banco de dados como dados_sinisa_1
 
+UF=22
+
+dados_sinisa_1<-dados_sinisa[which(substr(dados_sinisa$CODMUNRES,1,2) == UF),]
+dim(dados_sinisa_1)
+
+# View(dados_sinisa_1)
+
+
 # Ao terminar a Tarefa 2 commit com a mensagem "script BDEM - SINISA - tarefas 1 a 2" e envie para o repositório Projeto_BDEM_2016
 
 
