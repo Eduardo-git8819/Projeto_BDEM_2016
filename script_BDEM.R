@@ -1390,6 +1390,84 @@ dim(dados_sinisa_1)
 
 # Tarefa 3. Criar um banco de dados, de nome SINISA_UF.csv (Exemplo: SINISA_RJ.csv), contendo as variáveis listadas no arquivo “Variáveis - Projeto - Tarefa 3 - SINISA.pdf”
 
+
+# será feito sem a linha_estado por enquanto.
+
+banco_inicial_dados_sinisa<-dados_sinisa_1
+
+# View(banco_inicial_dados_sinisa)
+
+# Criação das variáves:
+
+
+# ANO
+
+names(banco_inicial_dados_sinisa)[4]<-"ANO"
+
+
+# NIVEL
+
+t_banco_inicial_dados_sinisa<-banco_inicial_dados_sinisa
+
+t_banco_inicial_dados_sinisa<-t_banco_inicial_dados_sinisa[,c(1,4,5,6)]
+
+View(t_banco_inicial_dados_sinisa)
+
+t_banco_inicial_dados_sinisa$NIVEL<-"MUNICIPIO"
+
+
+# CODMUNRES
+
+# Adicionado anteriormente.
+
+
+# POPR_RA
+
+# Adicionado anteriormente.
+
+
+# POPR_RE
+
+# Adicionado anteriormente.
+
+
+# Organizando as ordens das colunas,
+# também transformando para character
+# a coluna CODMUNRES:
+
+banco_inicial_dados_sinisa<-t_banco_inicial_dados_sinisa
+
+banco_inicial_dados_sinisa<-banco_inicial_dados_sinisa[,c("ANO","NIVEL","CODMUNRES","POPR_RA","POPR_RE")]
+
+banco_inicial_dados_sinisa$CODMUNRES<-as.character(banco_inicial_dados_sinisa$CODMUNRES)
+
+# View(banco_inicial_dados_sinisa)
+
+
+# Criação da linha_estado
+
+linha_estado<-data.frame(
+  ANO=2016,
+  NIVEL="UF",
+  CODMUNRES="22",
+  POPR_RA=sum(banco_inicial_dados_sinisa$POPR_RA, na.rm = TRUE),
+  POPR_RE=sum(banco_inicial_dados_sinisa$POPR_RE, na.rm = TRUE)
+)
+
+# View(linha_estado)
+
+
+# Renomeando para o nome desejado e adicionando a linha estado.
+
+SINISA_UF<-rbind(linha_estado,banco_inicial_dados_sinisa)
+
+View(SINISA_UF)
+
+# Consertando a discrepância visual em relação ao índice:
+
+rownames(SINISA_UF)<-NULL
+
+
 # Ao terminar a Tarefa 3 commit com a mensagem "script BDEM - SINISA - tarefas 1 a 3" e envie para o repositório Projeto_BDEM_2016
 
 
