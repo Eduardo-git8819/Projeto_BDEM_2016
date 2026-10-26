@@ -1616,6 +1616,55 @@ BDEM_UF$NIVEL.y<- NULL
 
 # Conferir o banco BDEM_UF após inserção dos indicadores
 
+
+# Indicadores epidemiológicos
+
+
+# TGF (Taxa geral de fecundidade)
+
+BDEM_UF$TGF = round((BDEM_UF$TN / BDEM_UF$POPRC_F_15_49) * 1000, 2)
+
+
+# TMG (Taxa de mortalidade geral)
+
+BDEM_UF$TMG = round((BDEM_UF$TO / BDEM_UF$POPRE_T) * 1000, 2)
+
+
+# RMM (Razão de mortalidade materna)
+
+BDEM_UF$RMM = round((BDEM_UF$TO_MT / BDEM_UF$TN) * 100000, 2)
+
+
+# TMM (Taxa de mortalidade materna)
+
+BDEM_UF$TMM = round((BDEM_UF$TO_MT / BDEM_UF$POPRC_F_15_49) * 100000, 2)
+
+
+# TMM_P (Taxa de mortalidade materna precoce)
+
+BDEM_UF$TMM_P = round((BDEM_UF$TO_MT_P / BDEM_UF$POPRC_F_15_49) * 100000, 2)
+
+
+# TMN (Taxa de mortalidade neonatal)
+
+BDEM_UF$TMN = round(((BDEM_UF$TO_NT_P + BDEM_UF$TO_NT_T) / BDEM_UF$TN) * 1000, 2)
+
+
+# TMN_P (Taxa de mortalidade neonatal precoce)
+
+BDEM_UF$TMN_P = round((BDEM_UF$TO_NT_P / BDEM_UF$TN) * 1000, 2)
+
+
+# TMN_T (Taxa de mortalidade neonatal tardia)
+
+BDEM_UF$TMN_T = round((BDEM_UF$TO_NT_T / BDEM_UF$TN) * 1000, 2)
+
+
+# TMI (Taxa de mortalidade infantil)
+
+BDEM_UF$TMI = round(((BDEM_UF$TO_NT + BDEM_UF$TO_PNT) / BDEM_UF$TN) * 1000, 2)
+
+
 # Ao terminar a Tarefa 2 commit com a mensagem "script BDEM - BDEM - tarefas 1 a 2" e envie para o repositório Projeto_BDEM_2016
 
 
