@@ -1636,7 +1636,6 @@ BDEM_UF$RMM = round((BDEM_UF$TO_MT / BDEM_UF$TN) * 100000, 2)
 
 
 # TMM (Taxa de mortalidade materna)
-
 BDEM_UF$TMM = round((BDEM_UF$TO_MT / BDEM_UF$POPRC_F_15_49) * 100000, 2)
 
 
@@ -1669,5 +1668,8 @@ BDEM_UF$TMI = round(((BDEM_UF$TO_NT + BDEM_UF$TO_PNT) / BDEM_UF$TN) * 1000, 2)
 
 
 # Tarefa 3: Exportar o banco de dados com o nome BDEM_UF.csv (Exemplo: BDEM_RJ.csv)
+
+write.csv(BDEM_UF, file = "BDEM_PI.csv", row.names = FALSE)
+
 # Ao terminar a Tarefa 3 commit com o comentário "dados BDEM_UF 2016 e script - BDEM - tarefas 1 a 3"  e enviar para o repositório Projeto_BDEM_2016
  
