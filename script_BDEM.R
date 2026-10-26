@@ -1491,6 +1491,115 @@ write.csv(SINISA_UF, file = "SINISA_PI.csv", row.names = FALSE, fileEncoding = "
 # Além disso dentro do merge all = TRUE garante a manutenção de qualquer município presente em um dos bancos envolvidos no merge
 
 
+# Banco de dados exportados anteriormente
+
+SIM_UF<-read.csv("SIM_PI.csv", header = T, sep = ",")
+
+SINASC_UF<-read.csv("SINASC_PI.csv", header = T, sep = ",")
+
+SIDRA_UF<-read.csv("SIDRA_PI.csv", header = T, sep = ",")
+
+ATLAS_UF<-read.csv("ATLAS_PI.csv", header = T, sep = ",")
+
+SINISA_UF<-read.csv("SINISA_PI.csv", header = T, sep = ",")
+
+
+# Corrigindo e removendo o sétimo dígito da coluna CODMUNRES, dos bancos de dados, SIDRA_UF e ATLAS_UF respectivamente,
+# classificado como dígito identificador.
+
+# Ajeitando banco de dados SIDRA_UF:
+
+T_SIDRA_UF<-SIDRA_UF$CODMUNRES
+
+T_SIDRA_UF<-ifelse(nchar(SIDRA_UF$CODMUNRES) > 2, substr(as.character(SIDRA_UF$CODMUNRES), 1, nchar(SIDRA_UF$CODMUNRES)-1),
+                   SIDRA_UF$CODMUNRES)
+
+SIDRA_UF$CODMUNRES<-T_SIDRA_UF
+
+
+# Ajeitando banco de dados ATLAS_UF:
+
+T_ATLAS_UF<-ATLAS_UF$CODMUNRES
+
+T_ATLAS_UF<-ifelse(nchar(ATLAS_UF$CODMUNRES) > 2, substr(as.character(ATLAS_UF$CODMUNRES), 1, nchar(ATLAS_UF$CODMUNRES)-1),
+                   ATLAS_UF$CODMUNRES)
+
+ATLAS_UF$CODMUNRES<-T_ATLAS_UF
+
+
+# Juntando os bancos de dados no banco novo a ser criado, BDEM_UF:
+
+BDEMparcial1<-merge(SIM_PI, SINASC_UF, by = "CODMUNRES", all.x = TRUE)
+
+View(BDEMparcial1)
+
+# Corrigindo nomes e colunas do primeiro merge entre os bancos, SIM_UF e SINASC_UF:
+
+names(BDEMparcial1)[2]<-"ANO"
+
+names(BDEMparcial1)[3]<-"NIVEL"
+
+
+BDEMparcial1$ANO.y<- NULL
+
+BDEMparcial1$NIVEL.y<- NULL 
+
+
+# Fazendo um merge entre os bancos BDEMparcial1 e SIDRA_UF:
+
+BDEMparcial2<-merge(BDEMparcial1, SIDRA_UF, by = "CODMUNRES", all.x = TRUE)
+
+
+# Corrigindo nomes e colunas do primeiro merge entre os bancos, BDEMparcial1 e SIDRA_UF:
+
+
+names(BDEMparcial2)[2]<- "ANO"
+
+names(BDEMparcial2)[3]<- "NIVEL"
+
+
+BDEMparcial2$ANO.y<- NULL
+
+BDEMparcial2$NIVEL.y<- NULL 
+
+
+# Fazendo um merge entre os bancos BDEMparcial2 e ATLAS_UF:
+
+BDEMparcial3<-merge(BDEMparcial2, ATLAS_UF, by = "CODMUNRES", all.x = TRUE)
+
+
+# Corrigindo nomes e colunas do primeiro merge entre os bancos, BDEMparcial3 e ATLAS_UF
+
+
+names(BDEMparcial3)[2]<- "ANO"
+
+names(BDEMparcial3)[3]<- "NIVEL"
+
+
+BDEMparcial3$ANO.y<- NULL
+
+BDEMparcial3$NIVEL.y<- NULL 
+
+
+# Fazendo o merge final entre entre os bancos BDEMparcial3 e SINISA_UF:
+
+BDEM_UF<-merge(BDEMparcial3, SINISA_UF, by = "CODMUNRES", all.x = TRUE)
+
+
+# Corrigindo nomes e colunas do primeiro merge entre os bancos, BDEMparcial3 e SINISA_UF:
+
+
+names(BDEM_UF)[3]<- "NIVEL"
+
+
+names(BDEM_UF)[2]<- "ANO"
+
+
+BDEM_UF$ANO.y<- NULL
+
+BDEM_UF$NIVEL.y<- NULL 
+
+
 # Ao terminar a Tarefa 1 commit com a mensagem "script BDEM - BDEM - tarefa 1" e envie para o repositório Projeto_BDEM_2016
 
 
